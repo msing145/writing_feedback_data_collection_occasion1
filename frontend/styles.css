@@ -1,0 +1,65 @@
+:root{
+  --bg:#0b0c10;
+  --card:#15171e;
+  --muted:#8f9ba8;
+  --text:#e8edf2;
+  --accent:#5aa9e6;
+}
+
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
+.site-header{padding:24px;border-bottom:1px solid #21222c;background:linear-gradient(180deg,#0b0c10, #0f1117)}
+.site-header h1{margin:0;font-size:20px;font-weight:600;letter-spacing:.2px}
+
+main{max-width:1100px;margin:0 auto;padding:24px}
+
+.screen{display:none}
+.screen.active{display:block}
+
+h2{margin-top:0;font-size:22px}
+
+.expander summary{cursor:pointer;color:var(--accent);font-weight:600}
+.expander-content{padding:8px 0 0 0;color:var(--text)}
+
+.checkbox{display:flex;align-items:center;gap:10px;color:var(--text);margin:16px 0}
+.center{display:flex;justify-content:center;align-items:center;margin:24px 0}
+.primary{
+  background:var(--accent);
+  color:#001320;
+  border:none;
+  padding:10px 18px;
+  border-radius:12px;
+  font-weight:700;
+  cursor:pointer;
+  box-shadow:0 6px 20px rgba(90,169,230,.25);
+}
+.primary:hover{filter:brightness(1.05)}
+.primary:active{transform:translateY(1px)}
+
+.form-grid{display:grid;gap:16px}
+.field{background:var(--card);padding:16px;border:1px solid #22242e;border-radius:16px}
+.field label{display:block;margin-bottom:8px;color:#d6dde5}
+input[type="text"]{width:100%;padding:10px;border-radius:10px;border:1px solid #2a2e39;background:#0e1016;color:var(--text)}
+
+.radio-group{display:grid;gap:8px;margin-top:8px}
+.radio-group label{display:flex;gap:8px;align-items:center;color:var(--muted)}
+
+.conditional.hidden, .conditional-group.hidden{display:none}
+
+.columns{display:grid;grid-template-columns: 1fr 2fr; gap:16px}
+.col .title{font-weight:700;margin-bottom:8px}
+.box{background:var(--card);padding:16px;border:1px solid #22242e;border-radius:16px;max-height:70vh;overflow:auto}
+
+.writing textarea{
+  width:100%;
+  min-height:70vh;
+  padding:16px;
+  border-radius:16px;
+  border:1px solid #22242e;
+  background:#0e1016;
+  color:var(--text);
+  resize:vertical;
+}
+
+.thanks{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:50vh}
+.row{margin:12px 0}
