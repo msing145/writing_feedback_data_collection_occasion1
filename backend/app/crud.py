@@ -6,6 +6,11 @@ from datetime import datetime, timezone
 from . import models_db as models
 from .schemas import DemographicsIn, StartSessionIn, EssaySubmitIn
 from .utils import word_count
+from .storage import get_storage, build_essay_key
+
+import logging
+
+logger = logging.getLogger("writing-app")
 
 MAX_ESSAY_CHARS = 20_000
 
@@ -84,6 +89,16 @@ def submit_essay(db: Session, payload: EssaySubmitIn) -> models.WritingSession:
     session.essay_text = essay
     session.word_count = word_count(session.essay_text)
     session.char_count = len(session.essay_text)
+
+    # Optional S3 backup (no DB change). Errors are logged but non-fatal.
+    try:
+        s3 = get_storage()
+        if s3:
+            key = build_essay_key(session.asurite, session.id)
+            s3.put_text(key, session.essay_text)
+            logger.info("Backed up essay to S3: %s", key)
+    except Exception as ex:
+        logger.warning("S3 backup failed: %s", ex)
 
     if start is not None:
         delta = now - start
