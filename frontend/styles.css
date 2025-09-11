@@ -1,14 +1,22 @@
+/* ==== THEME (updated to match your consent template) ==== */
 :root{
-  --bg:#0b0c10;
-  --card:#15171e;
-  --muted:#8f9ba8;
-  --text:#e8edf2;
-  --accent:#5aa9e6;
+  --bg:#0f172a;
+  --card:#111827;
+  --muted:#94a3b8;
+  --text:#e5e7eb;
+  --accent:#22c55e;      /* green accent per template */
+  --warn:#f59e0b;
+  --danger:#ef4444;
+  --ring:#22c55e33;
 }
 
+/* base */
 *{box-sizing:border-box}
-body{margin:0;background:var(--bg);color:var(--text);font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif}
-.site-header{padding:24px;border-bottom:1px solid #21222c;background:linear-gradient(180deg,#0b0c10, #0f1117)}
+body{
+  margin:0;background:linear-gradient(180deg,#0b1220,var(--bg));color:var(--text);
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif
+}
+.site-header{padding:24px;border-bottom:1px solid #1f2937;background:linear-gradient(180deg,#0b1220,#0f172a)}
 .site-header h1{margin:0;font-size:20px;font-weight:600;letter-spacing:.2px}
 
 main{max-width:1100px;margin:0 auto;padding:24px}
@@ -18,28 +26,55 @@ main{max-width:1100px;margin:0 auto;padding:24px}
 
 h2{margin-top:0;font-size:22px}
 
+/* consent page template styles */
+.container{max-width:900px;margin:40px auto;padding:24px;background:linear-gradient(180deg,#0b1220,#0b1220)}
+.card{
+  background:linear-gradient(180deg,#0b1220,#0b1020);
+  border:1px solid #1f2937;border-radius:16px;padding:24px;
+  box-shadow:0 20px 40px rgba(0,0,0,.35), inset 0 0 0 1px #243145;
+}
+.right{text-align:right}
+.badge{display:inline-block;padding:4px 8px;border-radius:999px;background:#1f2937;color:var(--muted);font-size:12px}
+.passage{white-space:pre-wrap;line-height:1.6}
+
+/* Bigger, greener buttons */
+button, .primary {
+  background: var(--accent);   /* green */
+  color: #052e16;
+  border: none;
+  padding: 14px 22px;          /* larger */
+  font-size: 16px;             /* larger */
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 700;
+  box-shadow: 0 8px 24px rgba(34,197,94,.25);
+}
+button:hover, .primary:hover { filter: brightness(1.05); }
+button:active, .primary:active { transform: translateY(1px); }
+
+button.secondary {
+  background: #1f2937;
+  color: var(--text);
+  box-shadow: none;
+}
+
+/* existing form/writing styles (kept) */
 .expander summary{cursor:pointer;color:var(--accent);font-weight:600}
 .expander-content{padding:8px 0 0 0;color:var(--text)}
 
 .checkbox{display:flex;align-items:center;gap:10px;color:var(--text);margin:16px 0}
 .center{display:flex;justify-content:center;align-items:center;margin:24px 0}
 .primary{
-  background:var(--accent);
-  color:#001320;
-  border:none;
-  padding:10px 18px;
-  border-radius:12px;
-  font-weight:700;
-  cursor:pointer;
-  box-shadow:0 6px 20px rgba(90,169,230,.25);
+  background:var(--accent);color:#052e16;border:none;padding:10px 18px;border-radius:12px;
+  font-weight:700;cursor:pointer;box-shadow:0 6px 20px rgba(34,197,94,.25);
 }
-.primary:hover{filter:brightness(1.05)}
-.primary:active{transform:translateY(1px)}
 
 .form-grid{display:grid;gap:16px}
-.field{background:var(--card);padding:16px;border:1px solid #22242e;border-radius:16px}
+.field{background:var(--card);padding:16px;border:1px solid #1f2937;border-radius:16px}
 .field label{display:block;margin-bottom:8px;color:#d6dde5}
-input[type="text"]{width:100%;padding:10px;border-radius:10px;border:1px solid #2a2e39;background:#0e1016;color:var(--text)}
+input[type="text"], input[type="number"]{
+  width:100%;padding:10px;border-radius:10px;border:1px solid #263245;background:#0b1220;color:var(--text)
+}
 
 .radio-group{display:grid;gap:8px;margin-top:8px}
 .radio-group label{display:flex;gap:8px;align-items:center;color:var(--muted)}
@@ -48,18 +83,77 @@ input[type="text"]{width:100%;padding:10px;border-radius:10px;border:1px solid #
 
 .columns{display:grid;grid-template-columns: 1fr 2fr; gap:16px}
 .col .title{font-weight:700;margin-bottom:8px}
-.box{background:var(--card);padding:16px;border:1px solid #22242e;border-radius:16px;max-height:70vh;overflow:auto}
+.box{background:var(--card);padding:16px;border:1px solid #1f2937;border-radius:16px;max-height:70vh;overflow:auto}
 
 .writing textarea{
-  width:100%;
-  min-height:70vh;
-  padding:16px;
-  border-radius:16px;
-  border:1px solid #22242e;
-  background:#0e1016;
-  color:var(--text);
-  resize:vertical;
+  width:100%;min-height:70vh;padding:16px;border-radius:16px;border:1px solid #1f2937;background:#0b1220;color:var(--text);resize:vertical;
 }
 
 .thanks{display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:50vh}
 .row{margin:12px 0}
+
+/* Small toolbar helpers for top-left/right page controls */
+.page-actions { display: flex; gap: 8px; margin-bottom: 8px; }
+.page-actions.left { justify-content: flex-start; }
+.page-actions.right { justify-content: flex-end; }
+
+/* --- Compact, natural text rhythm --- */
+
+/* Use normal whitespace flow inside prose blocks */
+.passage { 
+  white-space: normal;         /* was: pre-wrap */
+  line-height: 1.45;           /* slightly tighter than 1.6 */
+}
+
+/* Trim paragraph margins in prose & boxes */
+.passage p,
+.box p {
+  margin: 0.5em 0;             /* was ~12px / default larger */
+}
+.passage p:first-child,
+.box p:first-child { margin-top: 0; }
+.passage p:last-child,
+.box p:last-child  { margin-bottom: 0; }
+
+/* Headings: reduce default top/bottom margins so they don't blow up spacing */
+h1, h2, h3 { 
+  margin: 0.4em 0 0.5em;
+}
+
+/* Lists used in instructions/consent */
+ul.options {
+  margin: 0.5em 0 0.25em;
+  padding-left: 1.25em;        /* keep bullets aligned */
+}
+ul.options li { 
+  margin: 0.25em 0;
+}
+
+/* General paragraph default (outside .passage/.box) */
+p { margin: 0 0 0.7em; }
+
+/* Optional: tighten HR spacing slightly */
+hr { margin: 16px 0; }         /* was 24px */
+
+/* --- Writing page: stack prompt above editor and align widths --- */
+#screen-writing .columns {
+  display: grid;
+  grid-template-columns: 1fr; /* single column */
+  gap: 16px;
+}
+
+#screen-writing .col.prompt,
+#screen-writing .col.writing {
+  width: 100%; /* same width, aligned */
+}
+
+/* Writing page: match textarea text size to the prompt */
+#screen-writing .writing textarea {
+  font-size: 1rem;    /* same as normal body/prompt text (≈16px) */
+  line-height: 1.6;   /* keep it readable */
+}
+
+/* Make the placeholder the same size for consistency */
+#screen-writing .writing textarea::placeholder {
+  font-size: 1rem;
+}

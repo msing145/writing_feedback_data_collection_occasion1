@@ -1,5 +1,5 @@
-// Change this if your backend runs elsewhere
-const API_BASE = "http://localhost:8000";
+// Use same-origin when served by FastAPI. Works in dev and prod.
+const API_BASE = ""; // e.g., "" -> fetch("/api/...")
 
 export async function saveDemographics(payload) {
   const res = await fetch(`${API_BASE}/api/demographics`, {

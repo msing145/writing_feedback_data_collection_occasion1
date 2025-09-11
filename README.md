@@ -27,20 +27,6 @@ uvicorn app.main:app --reload --port 8000
 
 The API will be available at: http://localhost:8000
 
-### 4) Open the frontend
-
-Open `frontend/index.html` in your browser. For local development with CORS-friendly defaults, you can use a simple static server (optional):
-
-```bash
-# from the project root
-python -m http.server 5173
-# then visit http://localhost:5173/frontend/index.html
-```
-
-> The frontend talks to the backend at `http://localhost:8000` by default. You can change this in `frontend/js/api.js` if needed.
-
----
-
 ## Data Storage
 
 - Uses **SQLite** by default (`./backend/data/app.db`).

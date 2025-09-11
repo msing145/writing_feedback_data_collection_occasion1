@@ -1,4 +1,4 @@
-from sqlalchemy import Column, String, Integer, Boolean, DateTime, Text, ForeignKey
+from sqlalchemy import Column, String, Integer, Boolean, DateTime, Text, ForeignKey, UniqueConstraint
 from sqlalchemy.orm import relationship, Mapped, mapped_column
 from datetime import datetime, timezone
 import uuid
@@ -19,10 +19,11 @@ class Participant(Base):
 
 class Demographics(Base):
     __tablename__ = "demographics"
+    __table_args__ = (UniqueConstraint("asurite", name="uq_demographics_asurite"),)
+
     id: Mapped[int] = mapped_column(Integer, primary_key=True, autoincrement=True)
     asurite: Mapped[str] = mapped_column(String, ForeignKey("participants.asurite"), nullable=False, index=True)
 
-    # Fields mirrored from Streamlit app
     gender: Mapped[str] = mapped_column(String, nullable=False)
     age: Mapped[str] = mapped_column(String, nullable=False)
     race_ethnicity: Mapped[str] = mapped_column(String, nullable=False)
