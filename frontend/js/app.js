@@ -1,5 +1,5 @@
 // frontend/js/app.js
-// Finalized app script (ES module) after latest tweaks
+// Finalized app script (ES module) with submit confirmation
 
 import { saveDemographics, startSession, submitEssay } from "./api.js";
 
@@ -243,14 +243,25 @@ btnBackToInstructions?.addEventListener("click", () => {
 btnSubmitEssay?.addEventListener("click", async () => {
   const textarea = document.getElementById("essayText");
   const text = (textarea?.value || "").trim();
-  if (!text && !confirm("Your essay text is empty. Submit anyway?")) return;
+
+  // If empty, first confirm they still want to submit
+  if (!text) {
+    const proceedEmpty = confirm("Your essay text is empty. Submit anyway?");
+    if (!proceedEmpty) return;
+  }
+
+  // Always confirm submission
+  const proceed = confirm("Are you sure you want to submit your essay?");
+  if (!proceed) return;
+
   if (!state.sessionId) {
     alert("Missing writing session. Please start writing from the instructions page.");
     return;
   }
+
   btnSubmitEssay.disabled = true;
   try {
-    // Send client start time to backend to compute precise duration
+    // Note: third arg is ignored by api.js (extra args are fine).
     await submitEssay(
       state.sessionId,
       text,
