@@ -1,16 +1,22 @@
-# apprunner.yaml
 version: 1.0
-runtime: docker
+runtime: python311   # managed Python 3.11 runtime
+
 build:
   commands:
     build:
-      - echo "Building the application"
+      - echo "No-op build phase for Python 3.11"
+
 run:
-  command: uvicorn backend.app.main:app --host 0.0.0.0 --port 8000
+  runtime-version: 3.11
+  pre-run:
+    - pip3 install --no-cache-dir -r backend/requirements.txt
+    - mkdir -p backend/data
+  command: python3 -m uvicorn backend.app.main:app --host 0.0.0.0 --port $PORT
   network:
     port: 8000
-    env:
-      - name: ENV
-        value: production
-      - name: DEBUG
-        value: "false"
+    env: PORT
+  env:
+    - name: ENV
+      value: production
+    - name: DEBUG
+      value: "false"
