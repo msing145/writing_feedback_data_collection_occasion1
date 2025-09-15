@@ -10,7 +10,6 @@ run:
   runtime-version: 3.11
   pre-run:
     - pip3 install --no-cache-dir -r backend/requirements.txt
-    - mkdir -p backend/data
   command: python3 -m uvicorn backend.app.main:app --host 0.0.0.0 --port 8000
   network:
     port: 8000
@@ -20,3 +19,5 @@ run:
       value: production
     - name: DEBUG
       value: "false"
+    - name: DATABASE_URL
+      value: mysql+mysqlconnector://leiprodsoletwf1:lei_solet_wf1@wf1-lei-db-instance-1.c5ywaw68cg2l.us-west-2.rds.amazonaws.com:3306/myappdb
