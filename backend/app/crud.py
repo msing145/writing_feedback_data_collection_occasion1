@@ -13,8 +13,10 @@ logger = logging.getLogger("writing-app")
 
 MAX_ESSAY_CHARS = 20_000
 
+
 def _norm_asurite(s: str) -> str:
     return (s or "").strip().lower()
+
 
 def ensure_participant(db: Session, asurite: str, program_use_only: Optional[bool] = None) -> models.Participant:
     asurite = _norm_asurite(asurite)
@@ -27,8 +29,9 @@ def ensure_participant(db: Session, asurite: str, program_use_only: Optional[boo
         participant.program_use_only = program_use_only
     return participant
 
+
 def save_demographics(db: Session, payload: DemographicsIn) -> str:
-    asurite = _norm_asurite(payload.ASURite)
+    asurite = _norm_asurite(payload.asurite)
     participant = ensure_participant(db, asurite, payload.program_use_only)
 
     # upsert one-to-one demographics
@@ -37,21 +40,22 @@ def save_demographics(db: Session, payload: DemographicsIn) -> str:
         demo = models.Demographics(asurite=participant.asurite)
         db.add(demo)
 
-    demo.gender = payload.Gender
-    demo.age = payload.Age
-    demo.race_ethnicity = payload.Race_Ethnicity
-    demo.race_ethnicity_specify = payload.Race_Ethnicity_Specify or ""
-    demo.major = payload.Major
-    demo.major_category = payload.Major_Category
-    demo.major_category_specify = payload.Major_Category_Specify or ""
-    demo.language_background = payload.Language_Background
-    demo.native_language = payload.Native_Language or ""
-    demo.years_studied_english = payload.Years_Studied_English or ""
-    demo.years_in_us = payload.Years_in_US or ""
+    demo.gender = payload.gender
+    demo.age = payload.age
+    demo.race_ethnicity = payload.race_ethnicity
+    demo.race_ethnicity_specify = payload.race_ethnicity_specify or ""
+    demo.major = payload.major
+    demo.major_category = payload.major_category
+    demo.major_category_specify = payload.major_category_specify or ""
+    demo.language_background = payload.language_background
+    demo.native_language = payload.native_language or ""
+    demo.years_studied_english = payload.years_studied_english or ""
+    demo.years_in_us = payload.years_in_us or ""
     demo.program_use_only = payload.program_use_only
 
     db.commit()
     return participant.asurite
+
 
 def start_session(db: Session, payload: StartSessionIn) -> models.WritingSession:
     asurite = _norm_asurite(payload.asurite)
@@ -62,6 +66,7 @@ def start_session(db: Session, payload: StartSessionIn) -> models.WritingSession
     db.refresh(session)
     return session
 
+
 def _as_utc(dt: Optional[datetime]) -> Optional[datetime]:
     """Return a UTC-aware datetime. If naive, assume it was intended as UTC."""
     if dt is None:
@@ -69,6 +74,7 @@ def _as_utc(dt: Optional[datetime]) -> Optional[datetime]:
     if dt.tzinfo is None or dt.tzinfo.utcoffset(dt) is None:
         return dt.replace(tzinfo=timezone.utc)
     return dt.astimezone(timezone.utc)
+
 
 def submit_essay(db: Session, payload: EssaySubmitIn) -> models.WritingSession:
     session = db.get(models.WritingSession, payload.session_id)
