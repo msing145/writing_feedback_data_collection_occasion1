@@ -4,24 +4,22 @@ from datetime import datetime
 # ---- Demographics ----
 class DemographicsIn(BaseModel):
     program_use_only: bool = False
-    ASURite: str = Field(..., min_length=1)
+    asurite: str = Field(..., min_length=1)
 
-    Gender: str
-    Age: str
+    gender: str
+    age: str
 
-    # Packed value: "Hispanic_Origin=Yes|No; Race=A, B, C"
-    Race_Ethnicity: str
-    Race_Ethnicity_Specify: str = ""
+    race_ethnicity: str
+    race_ethnicity_specify: str = ""
 
-    # Majors removed from UI -> keep optional for backward compat
-    Major: str = ""
-    Major_Category: str = ""
-    Major_Category_Specify: str = ""
+    major: str = ""
+    major_category: str = ""
+    major_category_specify: str = ""
 
-    Language_Background: str
-    Native_Language: str = ""
-    Years_Studied_English: str = ""
-    Years_in_US: str = ""
+    language_background: str
+    native_language: str = ""
+    years_studied_english: str = ""
+    years_in_us: str = ""
 
 class DemographicsOut(BaseModel):
     asurite: str
